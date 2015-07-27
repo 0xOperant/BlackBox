@@ -14,7 +14,7 @@ called by launch_AMI.sh, installs packages and configures the system as an OpenV
 2. Once the setup is complete, you must scp your CA certificate (ca.crt) and public/private key pair (vpnserver.crt, vpnserver.key, generated offline) to the /etc/openvpn/ directory, and then download the TLS key (ta.key) to your client.
 3. You must have an API key from pushover.net to enable push notifications.
 4. The configure_VPN.sh script "should" work on any Ubuntu 14.04 system, including a new droplet/linode/etc. Just login and run the script as root.
-5. The launch_AMI.sh script will output a log file to your current directory containing instance details, including it's public IP address. You will need this in order to setup a DNS A record with your DNS provider.
+5. The launch_AMI.sh script will output a log file to your current directory containing instance details, including it's public IP address. You will need this in order to setup a DNS A record with your DNS provider. I want to script this as well.
 
 Acknowledgements:
 I borrowed heavily from https://github.com/sebsto/AWSVPN
