@@ -1,7 +1,7 @@
 # BlackBox
 Raspbian + openVPN wifi travel router
 
-##Server Setup
+## Server Setup
 
 ### launch_AMI.sh
 launches a new AWS EC2 instance with the options provided, then calls configure_VPN.sh
@@ -17,6 +17,6 @@ called by launch_AMI.sh, installs packages and configures the system as an OpenV
 Acknowledgements:
 I borrowed heavily from https://github.com/sebsto/AWSVPN
 
-##Client Setup
-Work in progress...sorry.
+## Client Setup
+Work in progress...sorry. I plan to adapt the configure_VPN script for configuring the Raspbian client. I will let you know how it turns out.
 
