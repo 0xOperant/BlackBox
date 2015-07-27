@@ -21,7 +21,7 @@
 AMI_ID=ami-5189a661 #configure this for your region
 KEY_ID=#Your_SSH_Key
 SEC_ID=#Your_VPC_Security_Group
-BOOTSTRAP_SCRIPT=#Your_Script.sh 
+BOOTSTRAP_SCRIPT=configure_VPN.sh 
 
 echo "Starting Instance..."
 INSTANCE_DETAILS=`aws ec2 run-instances --image-id $AMI_ID --key-name $KEY_ID --security-groups $SEC_ID --instance-type t2.micro --user-data file://./$BOOTSTRAP_SCRIPT --output text | grep INSTANCES`
