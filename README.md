@@ -10,7 +10,7 @@ launches a new AWS EC2 instance with the options provided, then calls configure_
 called by launch_AMI.sh, installs packages and configures the system as an OpenVPN server
 
 ### Sadist?
-If you have an afternoon to waste, this guide (https://github.com/belldavidr/BlackBox/wiki/BlackBox-Server-Setup) will walk you through manually setting up the BlackBox server.  Or just run the 4-minute script. I thought so.
+If you have an afternoon to waste, this guide (https://github.com/belldavidr/BlackBox/wiki/BlackBox-Server-Setup) will walk you through manually setting up the BlackBox server.  Or, just run the 4-minute script.
 
 ### Notes
 1. You must already have an AWS account, and the EC2 CLI Tools configured on your system (https://aws.amazon.com/cli/) for launch_AMI.sh to work.
