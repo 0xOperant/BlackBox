@@ -112,7 +112,6 @@ client-connect /etc/openvpn/clientalert.sh
 EOF
 
 #OPTIONAL: Add clientalert.sh to enable push alerts upon client connection.
-#Replace "token" and "user" values with valid API keys from pushover.net
 cat > /etc/openvpn/clientalert.sh <<EOF
 #!/bin/bash
 #Send push alert via pushover.net when clients connect
