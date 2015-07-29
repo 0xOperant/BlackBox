@@ -1,8 +1,8 @@
 #!/bin/sh
 
 #provide pushover.net credentials (optional)
-TOKEN=qwertyuixcvbnmsdfghjkxcvbnqwert
-USER=qwertyuiopasdfghjklzxcvbnmq
+#TOKEN= #Your token
+#USER= #Your user key
 
 #ensure kernel and packages are up-to-date
 apt-get update && apt-get upgrade -y
