@@ -18,13 +18,14 @@
 #        }
 #    }
 
-AMI_ID=ami-5189a661 #configure this for your region
-KEY_ID=#Your_SSH_Key
-SEC_ID=#Your_VPC_Security_Group
+AMI_ID=ami-5189a661	#configure this for your region
+SIZE=t2.micro		#adjust for your needs			
+KEY_ID=			#Your_SSH_Key
+SEC_ID=VPN		#Your_VPC_Security_Group
 BOOTSTRAP_SCRIPT=configure_VPN.sh 
 
 echo "Starting Instance..."
-INSTANCE_DETAILS=`aws ec2 run-instances --image-id $AMI_ID --key-name $KEY_ID --security-groups $SEC_ID --instance-type t2.micro --user-data file://./$BOOTSTRAP_SCRIPT --output text | grep INSTANCES`
+INSTANCE_DETAILS=`aws ec2 run-instances --image-id $AMI_ID --key-name $KEY_ID --security-groups $SEC_ID --instance-type $SIZE --user-data file://./$BOOTSTRAP_SCRIPT --output text | grep INSTANCES`
 
 INSTANCE_ID=`echo $INSTANCE_DETAILS | awk '{print $7}'`
 
@@ -39,10 +40,16 @@ do
 done
 
 echo "Instance "$INSTANCE_ID" successfully started!"
+
+#request and associate elastic IP
+ELASTIC_IP=`aws ec2 allocate-address --domain VPC | awk '{print $3}'`
+aws ec2 associate-address --instance-id $INSTANCE_ID --public-ip $ELASTIC_IP > $INSTANCE_ID.log
+
+#query instance details, log output to file and print to screen
 DNS_NAME=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --output text | grep INSTANCES | awk '{print $13}'`
 AVAILABILITY_ZONE=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --output text | grep PLACEMENT | awk '{print $2}'`
 PUBLIC_IP=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --output text | grep INSTANCES | awk '{print $14}'`
-echo "Instance "$INSTANCE_ID" with DNS name "$DNS_NAME" created in availability zone "$AVAILABILITY_ZONE", with public IP address" $PUBLIC_IP > $INSTANCE_ID.log
+echo "Instance "$INSTANCE_ID" with DNS name "$DNS_NAME" created in availability zone "$AVAILABILITY_ZONE", with public IP address" $PUBLIC_IP >> $INSTANCE_ID.log
 echo "Use SSH key ""$KEY_ID".pem" for access (ssh -i $KEY_ID.pem ubuntu@$PUBLIC_IP)" >> $INSTANCE_ID.log
 cat $INSTANCE_ID.log
 echo "Details available in "$INSTANCE_ID".log"

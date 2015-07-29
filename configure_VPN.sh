@@ -1,12 +1,13 @@
 #!/bin/sh
-  
-# Get public IP for openVPN server.conf
-PUBLIC_IP=`wget -q -O - 'checkip.amazonaws.com'`
+
+#provide pushover.net credentials (optional)
+TOKEN=qwertyuixcvbnmsdfghjkxcvbnqwert
+USER=qwertyuiopasdfghjklzxcvbnmq
 
 #ensure kernel and packages are up-to-date
+apt-get update && apt-get upgrade -y
 apt-get dist-upgrade -y
 apt-get autoremove -y
-apt-get update && apt-get upgrade -y
 
 #install fail2ban
 apt-get install fail2ban -y
@@ -78,7 +79,6 @@ apt-get update && apt-get install openvpn -y
 #Configure openVPN server. After keys have been uploaded, edit this file to reflect.
 #OpenVPN will not start until required files are in place.
 cat > /etc/openvpn/server.conf <<EOF
-local $PUBLIC_IP
 port 1194
 proto udp
 dev tun
@@ -118,11 +118,11 @@ cat > /etc/openvpn/clientalert.sh <<EOF
 #Send push alert via pushover.net when clients connect
 NOW="\$(date +"%H:%M:%S on %m-%d-%Y")"
 
-curl -s \
-  --form-string "token=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
-  --form-string "user=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
-  --form-string "sound=incoming" \
-  --form-string "message=At \$NOW, \$common_name connected to VPN Server $PUBLIC_IP from public IP \$untrusted_ip" \
+curl -s \\
+  --form-string "token=$TOKEN" \\
+  --form-string "user=$USER" \\
+  --form-string "sound=incoming" \\
+  --form-string "message=At \$NOW, \$common_name connected to your AWS OpenVPN Server from public IP \$untrusted_ip" \\
 https://api.pushover.net/1/messages.json
 
 exit 0
