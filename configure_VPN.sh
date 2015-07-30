@@ -4,8 +4,8 @@
 # Use launch_AMI.sh to automate deployment on AWS.
 
 # provide pushover.net credentials (optional)
-#TOKEN= #Your token
-#USER= #Your user key
+#TOKEN= Your_Token
+#USER= Your_User
 
 # ensure kernel and packages are up-to-date
 apt-get update && apt-get upgrade -y
@@ -120,7 +120,7 @@ cp /etc/openvpn/server.conf /etc/openvpn/udp53.conf
 sed -i 's/1194/53/g' /etc/openvpn/udp53.conf
 sed -i 's/10.8.0.0/10.9.0.0/g' /etc/openvpn/udp53.conf
 sed -i 's/ipp.txt/udp53ipp.txt/g' /etc/openvpn/udp53.conf
-sed -i 's/openvpn-status.log/udp53openvpn-status.log/g /etc/openvpn/udp53.conf
+sed -i 's/openvpn-status.log/udp53openvpn-status.log/g' /etc/openvpn/udp53.conf
 sed -i 's/openvpn.log/udp53openvpn.log/g' /etc/openvpn/udp53.conf
 
 # Set OpenVPN also listen on TCP 443
@@ -129,14 +129,14 @@ sed -i 's/1194/443/g' /etc/openvpn/tcp443.conf
 sed -i 's/udp/tcp/g' /etc/openvpn/tcp443.conf
 sed -i 's/10.8.0.0/10.10.0.0/g' /etc/openvpn/tcp443.conf
 sed -i 's/ipp.txt/tcp443ipp.txt/g' /etc/openvpn/tcp443.conf
-sed -i 's/openvpn-status.log/tcp443openvpn-status.log/g /etc/openvpn/tcp443.conf
+sed -i 's/openvpn-status.log/tcp443openvpn-status.log/g' /etc/openvpn/tcp443.conf
 sed -i 's/openvpn.log/tcp443openvpn.log/g' /etc/openvpn/tcp443.conf
 
 # OPTIONAL: Add clientalert.sh to enable push alerts upon client connection.
 cat > /etc/openvpn/clientalert.sh <<EOF
 #!/bin/bash
 #Send push alert via pushover.net when clients connect
-NOW="\$(date +"%H:%M:%S on %m-%d-%Y")"
+NOW="\$(date +"%H:%M:%S %Z on %m-%d-%Y")"
 
 curl -s \\
   --form-string "token=$TOKEN" \\
