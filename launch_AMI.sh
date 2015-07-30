@@ -49,8 +49,8 @@ ASSOCIATION_IP=`aws ec2 associate-address --instance-id $INSTANCE_ID --public-ip
 DNS_NAME=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --output text | grep INSTANCES | awk '{print $13}'`
 AVAILABILITY_ZONE=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --output text | grep PLACEMENT | awk '{print $2}'`
 PUBLIC_IP=`aws ec2 describe-instances --instance-ids $INSTANCE_ID --output text | grep INSTANCES | awk '{print $14}'`
-echo "Instance "$INSTANCE_ID" with DNS name "$DNS_NAME" created in availability zone "$AVAILABILITY_ZONE" >> $INSTANCE_ID.log
-echo "Elastic IP $PUBLIC_IP assigned with Association ID $ASSOCIATION_ID" >> $INSTANCE_ID.log
-echo "Use SSH key ""$KEY_ID".pem" for access (ssh -i $KEY_ID.pem ubuntu@$PUBLIC_IP) or (ssh -i $KEY_ID.pem ubuntu@$DNS_NAME)" >> $INSTANCE_ID.log
+echo "Instance "$INSTANCE_ID" with DNS name "$DNS_NAME" created in availability zone "$AVAILABILITY_ZONE >> $INSTANCE_ID.log
+echo "Elastic IP "$PUBLIC_IP" assigned with Association ID "$ASSOCIATION_ID >> $INSTANCE_ID.log
+echo "Use SSH key "$KEY_ID".pem for access (ssh -i "$KEY_ID".pem ubuntu@"$PUBLIC_IP") or (ssh -i "$KEY_ID".pem ubuntu@"$DNS_NAME")" >> $INSTANCE_ID.log
 cat $INSTANCE_ID.log
 echo "Details available in "$INSTANCE_ID".log"
