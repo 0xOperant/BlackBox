@@ -60,13 +60,4 @@ echo "Details available in "$INSTANCE_ID".log"
 # terminate old instance
 echo "Terminating old instance" $OLD_INSTANCE"..."
 aws ec2 terminate-instances --instance-ids $OLD_INSTANCE
-OLD_STATUS=` aws ec2 describe-instance-status --include-all-instances --filters Name=instance-state-name,Values=terminated | grep INSTANCESTATUSES | awk '{print $3;exit;}'`
-
-while [ "$OLD_STATUS" != "$OLD_INSTANCE" ]
-do
-    echo "Waiting for old instance to terminate..."
-    sleep 30
-    OLD_STATUS=` aws ec2 describe-instance-status --include-all-instances --filters Name=instance-state-name,Values=terminated | grep INSTANCESTATUSES | awk '{print $3;exit;}'`
-done
-
 echo $OLD_INSTANCE" terminated successfully. Migration complete."
