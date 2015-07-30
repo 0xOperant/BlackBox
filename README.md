@@ -4,10 +4,13 @@ Raspbian + openVPN wifi travel router
 ## Server Setup
 
 ### launch_AMI.sh
-launches a new AWS EC2 instance with the options provided, then calls configure_VPN.sh
+Launches a new AWS EC2 instance with the options provided, then calls configure_VPN.sh
 
 ### configure_VPN.sh
-called by launch_AMI.sh, installs packages and configures the system as an OpenVPN server
+Called by launch_AMI.sh, installs packages and configures the system as an OpenVPN server
+
+### migrate_AMI.sh
+Creates a new instance with configure_VPN.sh, migrates the existing Elastic IP from the old instance to the new instance, then terminates the old instance. Use with care.
 
 ### Notes
 1. You must already have an AWS account, and the AWS CLI Tools configured on your system (http://docs.aws.amazon.com/cli/latest/index.html) for launch_AMI.sh to work.
