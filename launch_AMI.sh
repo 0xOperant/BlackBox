@@ -27,7 +27,7 @@ BOOTSTRAP_SCRIPT=configure_VPN.sh
 echo "Starting Instance..."
 INSTANCE_DETAILS=`aws ec2 run-instances --image-id $AMI_ID --key-name $KEY_ID --security-groups $SEC_ID --instance-type $SIZE --user-data file://./$BOOTSTRAP_SCRIPT --output text | grep INSTANCES`
 
-INSTANCE_ID=`echo $INSTANCE_DETAILS | awk '{print $7}'`
+INSTANCE_ID=`echo $INSTANCE_DETAILS | awk '{print $8}'`
 
 # wait for instance to be started
 STATUS=`aws ec2 describe-instance-status --instance-ids $INSTANCE_ID --output text | grep INSTANCESTATUS | grep -v INSTANCESTATUSES | awk '{print $2}'`
