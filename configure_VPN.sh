@@ -148,5 +148,5 @@ https://api.pushover.net/1/messages.json
 exit 0
 EOF
 
-# make clientalert.sh executable
-chmod +x /etc/openvpn/clientalert.sh
+# make clientalert.sh executable after priv drop, or auth will fail mysteriously.
+chmod 755 /etc/openvpn/clientalert.sh
