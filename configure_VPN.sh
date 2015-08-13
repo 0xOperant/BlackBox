@@ -34,9 +34,11 @@ sed -i 's/ListenAddress ::/#ListenAddress ::/g' /etc/ssh/sshd_config
 sed -i 's/PermitRootLogin without-password/PermitRootLogin no/g' /etc/ssh/sshd_config
 service ssh restart
 
-# configure iptables to allow established sessions, SSH (tcp 22), openVPN (udp 1194), and drop all other traffic
+# configure iptables to allow established sessions, SSH (tcp 22), openVPN (udp 53,1194; tcp 443), and drop all other traffic
 iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -A INPUT -p udp --dport 1194 -j ACCEPT
 iptables -A INPUT -j DROP
 
