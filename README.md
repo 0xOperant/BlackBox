@@ -25,5 +25,7 @@ Acknowledgements:
 I borrowed heavily from https://github.com/sebsto/AWSVPN
 
 ## Client Setup
-Work in progress...sorry. I plan to adapt the configure_VPN script for configuring the Raspbian client. I will let you know how it turns out.
+Work in progress...sorry. Here are the basic ([HW/SW requirements])(https://github.com/belldavidr/BlackBox/wiki/BlackBox-Client-Setup).
+
+I plan to adapt the configure_VPN script for configuring the Raspbian client. I will let you know how it turns out.
 
